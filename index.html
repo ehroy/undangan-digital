@@ -8269,48 +8269,56 @@
     />
   </head>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const targetDate = new Date("2026-01-16T00:00:00+07:00").getTime();
+   document.addEventListener("DOMContentLoaded", function () {
+  const targetDate = new Date("2026-01-15T00:00:00+07:00").getTime();
 
-      const timer = document.querySelector(".jet-countdown-timer");
-      if (!timer) return;
+  const timer = document.querySelector(".jet-countdown-timer");
+  if (!timer) return;
 
-      const update = () => {
-        const now = new Date().getTime();
-        let diff = targetDate - now;
+  const update = () => {
+    const now = Date.now();
+    let diff = targetDate - now;
 
-        if (diff <= 0) {
-          diff = 0;
-          timer.style.display = "none"; // sesuai data-expire-actions
-        }
+    // JIKA SUDAH SAMPAI / LEWAT TANGGAL
+    if (diff <= 0) {
+      setAllZero();
+      return; // STOP UPDATE LOGIC
+    }
 
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
-        setValue("days", days);
-        setValue("hours", hours);
-        setValue("minutes", minutes);
-        setValue("seconds", seconds);
-      };
+    setValue("days", days);
+    setValue("hours", hours);
+    setValue("minutes", minutes);
+    setValue("seconds", seconds);
+  };
 
-      function setValue(type, value) {
-        const el = timer.querySelector(
-          `.jet-countdown-timer__item-value[data-value="${type}"]`
-        );
-        if (!el) return;
+  function setAllZero() {
+    setValue("days", 0);
+    setValue("hours", 0);
+    setValue("minutes", 0);
+    setValue("seconds", 0);
+  }
 
-        const str = value.toString().padStart(2, "0");
-        el.innerHTML = `
+  function setValue(type, value) {
+    const el = timer.querySelector(
+      `.jet-countdown-timer__item-value[data-value="${type}"]`
+    );
+    if (!el) return;
+
+    const str = value.toString().padStart(2, "0");
+    el.innerHTML = `
       <span class="jet-countdown-timer__digit">${str[0]}</span>
       <span class="jet-countdown-timer__digit">${str[1]}</span>
     `;
-      }
+  }
 
-      update();
-      setInterval(update, 1000);
-    });
+  update();
+  setInterval(update, 1000);
+});
   </script>
 
   <body
@@ -9127,7 +9135,7 @@
               >
                 <div class="elementor-widget-container">
                   <p class="elementor-heading-title elementor-size-default">
-                    Putri dari Pasangan<br />
+                    Putra dari Pasangan<br />
                     Bapak Kaseri &amp; Ibu Naslikah
                   </p>
                 </div>
@@ -9329,9 +9337,9 @@
                       <span class="elementor-button-icon elementor-align-icon-">
                         <i aria-hidden="true" class="far fa-calendar-check"></i>
                       </span>
-                      <span class="elementor-button-text"
+                      <!-- <span class="elementor-button-text"
                         >Simpan di Kalender</span
-                      >
+                      > -->
                     </span>
                   </a>
                 </div>
